@@ -1,0 +1,23 @@
+{
+	"name": "output_json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "output_json_to_destination",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "destination_zone"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "sink",
+				"fileSystem": "jun4container"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

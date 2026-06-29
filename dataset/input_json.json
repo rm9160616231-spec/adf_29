@@ -1,0 +1,24 @@
+{
+	"name": "input_json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "landing_json_to_raw",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "landing_zone"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "info.json",
+				"folderPath": "input",
+				"fileSystem": "jun4container"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

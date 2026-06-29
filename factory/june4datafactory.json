@@ -1,0 +1,15 @@
+{
+	"name": "june4datafactory",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "691ee422-59dc-4805-8a64-5356740d73c4",
+		"tenantId": "6321e7dd-f8d7-47b5-8302-53958f9284e1"
+	}
+}

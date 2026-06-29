@@ -1,0 +1,17 @@
+{
+	"name": "source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sourcedb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "june7",
+			"table": "info"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
