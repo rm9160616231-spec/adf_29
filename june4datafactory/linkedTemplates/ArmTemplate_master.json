@@ -1,0 +1,244 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "june4datafactory"
+		},
+		"azurestorage_adls_source_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'azurestorage_adls_source'"
+		},
+		"destinationdb_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'destinationdb'"
+		},
+		"input_data_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'input_data'"
+		},
+		"landing _order_to_raw_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'landing _order_to_raw'"
+		},
+		"landing_json_to_raw_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'landing_json_to_raw'"
+		},
+		"output_data_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'output_data'"
+		},
+		"output_json_to_destination_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'output_json_to_destination'"
+		},
+		"rank_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'rank'"
+		},
+		"rank_op_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'rank_op'"
+		},
+		"raw_output_to_destination_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'raw_output_to_destination'"
+		},
+		"sourcedb_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'sourcedb'"
+		},
+		"azurestorage_adls_source_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"destinationdb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "june7.database.windows.net"
+		},
+		"destinationdb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "june7database"
+		},
+		"destinationdb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ramadmin"
+		},
+		"input_data_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"landing _order_to_raw_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"landing_json_to_raw_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"output_data_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"output_json_to_destination_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"rank_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"rank_op_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"raw_output_to_destination_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"sourcedb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "june7.database.windows.net"
+		},
+		"sourcedb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "june7database"
+		},
+		"sourcedb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ramadmin"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "june4datafactory_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"azurestorage_adls_source_accountKey": {
+						"value": "[parameters('azurestorage_adls_source_accountKey')]"
+					},
+					"destinationdb_password": {
+						"value": "[parameters('destinationdb_password')]"
+					},
+					"input_data_accountKey": {
+						"value": "[parameters('input_data_accountKey')]"
+					},
+					"landing _order_to_raw_accountKey": {
+						"value": "[parameters('landing _order_to_raw_accountKey')]"
+					},
+					"landing_json_to_raw_accountKey": {
+						"value": "[parameters('landing_json_to_raw_accountKey')]"
+					},
+					"output_data_accountKey": {
+						"value": "[parameters('output_data_accountKey')]"
+					},
+					"output_json_to_destination_accountKey": {
+						"value": "[parameters('output_json_to_destination_accountKey')]"
+					},
+					"rank_accountKey": {
+						"value": "[parameters('rank_accountKey')]"
+					},
+					"rank_op_accountKey": {
+						"value": "[parameters('rank_op_accountKey')]"
+					},
+					"raw_output_to_destination_accountKey": {
+						"value": "[parameters('raw_output_to_destination_accountKey')]"
+					},
+					"sourcedb_password": {
+						"value": "[parameters('sourcedb_password')]"
+					},
+					"azurestorage_adls_source_properties_typeProperties_url": {
+						"value": "[parameters('azurestorage_adls_source_properties_typeProperties_url')]"
+					},
+					"destinationdb_properties_typeProperties_server": {
+						"value": "[parameters('destinationdb_properties_typeProperties_server')]"
+					},
+					"destinationdb_properties_typeProperties_database": {
+						"value": "[parameters('destinationdb_properties_typeProperties_database')]"
+					},
+					"destinationdb_properties_typeProperties_userName": {
+						"value": "[parameters('destinationdb_properties_typeProperties_userName')]"
+					},
+					"input_data_properties_typeProperties_url": {
+						"value": "[parameters('input_data_properties_typeProperties_url')]"
+					},
+					"landing _order_to_raw_properties_typeProperties_url": {
+						"value": "[parameters('landing _order_to_raw_properties_typeProperties_url')]"
+					},
+					"landing_json_to_raw_properties_typeProperties_url": {
+						"value": "[parameters('landing_json_to_raw_properties_typeProperties_url')]"
+					},
+					"output_data_properties_typeProperties_url": {
+						"value": "[parameters('output_data_properties_typeProperties_url')]"
+					},
+					"output_json_to_destination_properties_typeProperties_url": {
+						"value": "[parameters('output_json_to_destination_properties_typeProperties_url')]"
+					},
+					"rank_properties_typeProperties_url": {
+						"value": "[parameters('rank_properties_typeProperties_url')]"
+					},
+					"rank_op_properties_typeProperties_url": {
+						"value": "[parameters('rank_op_properties_typeProperties_url')]"
+					},
+					"raw_output_to_destination_properties_typeProperties_url": {
+						"value": "[parameters('raw_output_to_destination_properties_typeProperties_url')]"
+					},
+					"sourcedb_properties_typeProperties_server": {
+						"value": "[parameters('sourcedb_properties_typeProperties_server')]"
+					},
+					"sourcedb_properties_typeProperties_database": {
+						"value": "[parameters('sourcedb_properties_typeProperties_database')]"
+					},
+					"sourcedb_properties_typeProperties_userName": {
+						"value": "[parameters('sourcedb_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "june4datafactory_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'june4datafactory_ArmTemplate_0')]"
+			]
+		}
+	]
+}

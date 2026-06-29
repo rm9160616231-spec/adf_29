@@ -1,0 +1,87 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "june4datafactory"
+		},
+		"azurestorage_adls_source_accountKey": {
+			"value": ""
+		},
+		"destinationdb_password": {
+			"value": ""
+		},
+		"input_data_accountKey": {
+			"value": ""
+		},
+		"landing _order_to_raw_accountKey": {
+			"value": ""
+		},
+		"landing_json_to_raw_accountKey": {
+			"value": ""
+		},
+		"output_data_accountKey": {
+			"value": ""
+		},
+		"output_json_to_destination_accountKey": {
+			"value": ""
+		},
+		"rank_accountKey": {
+			"value": ""
+		},
+		"rank_op_accountKey": {
+			"value": ""
+		},
+		"raw_output_to_destination_accountKey": {
+			"value": ""
+		},
+		"sourcedb_password": {
+			"value": ""
+		},
+		"azurestorage_adls_source_properties_typeProperties_url": {
+			"value": "https://june4storage.dfs.core.windows.net/"
+		},
+		"destinationdb_properties_typeProperties_server": {
+			"value": "june7.database.windows.net"
+		},
+		"destinationdb_properties_typeProperties_database": {
+			"value": "june7database"
+		},
+		"destinationdb_properties_typeProperties_userName": {
+			"value": "ramadmin"
+		},
+		"input_data_properties_typeProperties_url": {
+			"value": "https://june4storage.dfs.core.windows.net/"
+		},
+		"landing _order_to_raw_properties_typeProperties_url": {
+			"value": "https://june4storage.dfs.core.windows.net/"
+		},
+		"landing_json_to_raw_properties_typeProperties_url": {
+			"value": "https://june4storage.dfs.core.windows.net/"
+		},
+		"output_data_properties_typeProperties_url": {
+			"value": "https://june4storage.dfs.core.windows.net/"
+		},
+		"output_json_to_destination_properties_typeProperties_url": {
+			"value": "https://june4storage.dfs.core.windows.net/"
+		},
+		"rank_properties_typeProperties_url": {
+			"value": "https://june4storage.dfs.core.windows.net/"
+		},
+		"rank_op_properties_typeProperties_url": {
+			"value": "https://june4storage.dfs.core.windows.net/"
+		},
+		"raw_output_to_destination_properties_typeProperties_url": {
+			"value": "https://june4storage.dfs.core.windows.net/"
+		},
+		"sourcedb_properties_typeProperties_server": {
+			"value": "june7.database.windows.net"
+		},
+		"sourcedb_properties_typeProperties_database": {
+			"value": "june7database"
+		},
+		"sourcedb_properties_typeProperties_userName": {
+			"value": "ramadmin"
+		}
+	}
+}

@@ -1,0 +1,610 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "june4datafactory"
+		},
+		"azurestorage_adls_source_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'azurestorage_adls_source'"
+		},
+		"destinationdb_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'destinationdb'"
+		},
+		"input_data_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'input_data'"
+		},
+		"landing _order_to_raw_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'landing _order_to_raw'"
+		},
+		"landing_json_to_raw_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'landing_json_to_raw'"
+		},
+		"output_data_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'output_data'"
+		},
+		"output_json_to_destination_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'output_json_to_destination'"
+		},
+		"rank_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'rank'"
+		},
+		"rank_op_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'rank_op'"
+		},
+		"raw_output_to_destination_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'raw_output_to_destination'"
+		},
+		"sourcedb_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'sourcedb'"
+		},
+		"azurestorage_adls_source_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"destinationdb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "june7.database.windows.net"
+		},
+		"destinationdb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "june7database"
+		},
+		"destinationdb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ramadmin"
+		},
+		"input_data_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"landing _order_to_raw_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"landing_json_to_raw_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"output_data_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"output_json_to_destination_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"rank_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"rank_op_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"raw_output_to_destination_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://june4storage.dfs.core.windows.net/"
+		},
+		"sourcedb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "june7.database.windows.net"
+		},
+		"sourcedb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "june7database"
+		},
+		"sourcedb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ramadmin"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/azurestorage_adls_source')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('azurestorage_adls_source_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('azurestorage_adls_source_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/destinationdb')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('destinationdb_properties_typeProperties_server')]",
+					"database": "[parameters('destinationdb_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('destinationdb_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('destinationdb_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/input_data')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('input_data_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('input_data_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/landing _order_to_raw')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('landing _order_to_raw_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('landing _order_to_raw_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/landing_json_to_raw')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('landing_json_to_raw_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('landing_json_to_raw_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/output_data')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('output_data_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('output_data_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/output_json_to_destination')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('output_json_to_destination_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('output_json_to_destination_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/rank')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('rank_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('rank_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/rank_op')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('rank_op_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('rank_op_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/raw_output_to_destination')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('raw_output_to_destination_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('raw_output_to_destination_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sourcedb')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('sourcedb_properties_typeProperties_server')]",
+					"database": "[parameters('sourcedb_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('sourcedb_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('sourcedb_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Banktransaction_destination')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "azurestorage_adls_source",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "bank_transactions_staging",
+						"fileSystem": "jun4container"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/azurestorage_adls_source')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Banktransaction_source')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "azurestorage_adls_source",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Branch_001_20260628.csv",
+						"folderPath": "bank_transactions",
+						"fileSystem": "jun4container"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "TransactionID",
+						"type": "String"
+					},
+					{
+						"name": "CustomerID",
+						"type": "String"
+					},
+					{
+						"name": "AccountNumber",
+						"type": "String"
+					},
+					{
+						"name": "BranchCode",
+						"type": "String"
+					},
+					{
+						"name": "BranchName",
+						"type": "String"
+					},
+					{
+						"name": "TransactionType",
+						"type": "String"
+					},
+					{
+						"name": "Amount",
+						"type": "String"
+					},
+					{
+						"name": "TransactionDate",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/azurestorage_adls_source')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/destination')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "destinationdb",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "destination_zone"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "june7",
+					"table": "edu"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/destinationdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/input008')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "rank",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "order.csv",
+						"folderPath": "input",
+						"fileSystem": "jun4container"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/rank')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/input_data')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "input_data",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "landing_zone"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "june4",
+						"fileSystem": "jun4container"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/input_data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/input_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "landing_json_to_raw",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "landing_zone"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "info.json",
+						"folderPath": "input",
+						"fileSystem": "jun4container"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/landing_json_to_raw')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/landing_order_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "landing _order_to_raw",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "landing_zone"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "order.csv",
+						"folderPath": "input",
+						"fileSystem": "jun4container"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/landing _order_to_raw')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/output_008')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "rank_op",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "rank",
+						"fileSystem": "jun4container"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/rank_op')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/output_data')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "output_data",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "destination_zone"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "june3",
+						"fileSystem": "jun4container"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/output_data')]"
+			]
+		}
+	]
+}
