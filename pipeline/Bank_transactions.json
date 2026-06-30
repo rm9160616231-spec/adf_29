@@ -19,9 +19,7 @@
 						"referenceName": "Banktransaction_source",
 						"type": "DatasetReference"
 					},
-					"fieldList": [
-						"exists"
-					],
+					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"recursive": true,

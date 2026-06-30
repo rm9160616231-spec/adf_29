@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Branch_001_20260628.csv",
 				"folderPath": "bank_transactions",
 				"fileSystem": "jun4container"
 			},
