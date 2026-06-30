@@ -1,0 +1,37 @@
+{
+	"name": "dataflow_hospital_claims",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "input_hospital_claims",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          ClaimId as string,",
+				"          HospitalName as string,",
+				"          PatientId as string,",
+				"          PatientName as string,",
+				"          Age as string,",
+				"          Gender as string,",
+				"          Diagnosis as string,",
+				"          ClaimAmount as string,",
+				"          AdmissionDate as string,",
+				"          DischargeDate as string,",
+				"          ClaimStatus as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1"
+			]
+		}
+	}
+}
