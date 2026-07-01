@@ -5,19 +5,11 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"dataset": {
-						"referenceName": "input008",
-						"type": "DatasetReference"
-					},
 					"name": "source00"
 				}
 			],
 			"sinks": [
 				{
-					"dataset": {
-						"referenceName": "output_008",
-						"type": "DatasetReference"
-					},
 					"name": "sink1"
 				}
 			],
@@ -33,17 +25,15 @@
 				"          age as short",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source00",
+				"     validateSchema: false) ~> source00",
 				"source00 rank(desc(age, true),",
 				"     output(rank as long)) ~> rank1",
 				"rank1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     preCommands: [],",
+				"     postCommands: []) ~> sink1"
 			]
 		}
 	}
