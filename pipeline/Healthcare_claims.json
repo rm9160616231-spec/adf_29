@@ -113,6 +113,23 @@
 									"type": "DatasetReference"
 								}
 							]
+						},
+						{
+							"name": "Append variable",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Copy data2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "FileList",
+								"value": "@item().name"
+							}
 						}
 					]
 				}
@@ -149,6 +166,12 @@
 				}
 			}
 		],
+		"variables": {
+			"FileList": {
+				"type": "Array",
+				"defaultValue": []
+			}
+		},
 		"annotations": []
 	}
 }

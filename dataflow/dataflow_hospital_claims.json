@@ -9,28 +9,63 @@
 						"referenceName": "input_hospital_claims",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "dataflow"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivecolumns"
+				},
+				{
+					"name": "filterdataflow"
+				},
+				{
+					"name": "selectrequiredcolumns"
+				},
+				{
+					"name": "aggregate"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
-				"          ClaimId as string,",
+				"          ClaimId as integer,",
 				"          HospitalName as string,",
-				"          PatientId as string,",
+				"          PatientId as integer,",
 				"          PatientName as string,",
-				"          Age as string,",
+				"          Age as short,",
 				"          Gender as string,",
 				"          Diagnosis as string,",
-				"          ClaimAmount as string,",
-				"          AdmissionDate as string,",
-				"          DischargeDate as string,",
+				"          ClaimAmount as integer,",
+				"          AdmissionDate as date,",
+				"          DischargeDate as date,",
 				"          ClaimStatus as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     validateSchema: true,",
+				"     ignoreNoFilesFound: false) ~> dataflow",
+				"dataflow derive(LoadDate = currentDate(),",
+				"          HospitalName = upper(HospitalName)) ~> derivecolumns",
+				"derivecolumns filter(ClaimAmount > 10000) ~> filterdataflow",
+				"filterdataflow select(mapColumn(",
+				"          ClaimId,",
+				"          HospitalName,",
+				"          PatientId,",
+				"          PatientName,",
+				"          Age,",
+				"          Gender,",
+				"          Diagnosis,",
+				"          Amount = ClaimAmount,",
+				"          AdmissionDate,",
+				"          DischargeDate,",
+				"          ClaimStatus,",
+				"          LoadDate",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectrequiredcolumns",
+				"selectrequiredcolumns aggregate(groupBy(HospitalName),",
+				"     TotalAmount = sum(Amount),",
+				"          TotalCalims = count()) ~> aggregate"
 			]
 		}
 	}
