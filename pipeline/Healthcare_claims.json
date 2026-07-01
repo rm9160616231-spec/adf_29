@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "input_hospital_claims",
+						"referenceName": "hospital_claims",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
