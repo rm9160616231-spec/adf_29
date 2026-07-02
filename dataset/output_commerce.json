@@ -1,0 +1,23 @@
+{
+	"name": "output_commerce",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ecommerce_contries",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "ecommerce",
+				"fileSystem": "jun4container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
